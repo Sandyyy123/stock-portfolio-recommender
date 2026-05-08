@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock Portfolio Recommender - Project 21</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    background: #0f172a; color: #e2e8f0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.7; min-height: 100vh;
+  }
+  nav {
+    position: sticky; top: 0; z-index: 1000;
+    background: #0f172aee; backdrop-filter: blur(12px);
+    border-bottom: 1px solid #1e293b; padding: 0.5rem 0;
+    overflow-x: auto; white-space: nowrap;
+  }
+  nav .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: flex; gap: 0.15rem; align-items: center; }
+  nav a { color: #94a3b8; text-decoration: none; font-size: 0.78rem; padding: 0.4rem 0.65rem; border-radius: 6px; transition: all 0.2s; flex-shrink: 0; }
+  nav a:hover, nav a:focus { color: #38bdf8; background: #1e293b; }
+  nav .nav-title { color: #38bdf8; font-weight: 700; font-size: 0.85rem; margin-right: 0.6rem; flex-shrink: 0; }
+  main { max-width: 1100px; margin: 0 auto; padding: 1.2rem 1.6rem 4rem; }
+  section { margin-bottom: 4rem; padding-top: 3.5rem; }
+  section:first-of-type { padding-top: 1rem; }
+  h1 {
+    font-size: 2.5rem; font-weight: 800; line-height: 1.2;
+    background: linear-gradient(135deg, #38bdf8, #a78bfa, #f472b6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 0.6rem;
+  }
+  .subtitle { color: #94a3b8; font-size: 1.05rem; margin-bottom: 1.4rem; }
+  h2 {
+    font-size: 1.7rem; font-weight: 700; color: #38bdf8;
+    margin-bottom: 1.2rem; padding-bottom: 0.4rem; border-bottom: 2px solid #1e293b;
+  }
+  h3 { font-size: 1.18rem; font-weight: 600; margin: 1.4rem 0 0.6rem; color: #a78bfa; }
+  p { margin-bottom: 0.9rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.6rem; }
+  li { margin-bottom: 0.35rem; }
+  strong { color: #f8fafc; }
+  a { color: #38bdf8; text-decoration: none; border-bottom: 1px dashed #1e293b; }
+  a:hover { color: #a78bfa; border-bottom-color: #a78bfa; }
+  .box { border-radius: 10px; padding: 1.1rem 1.3rem; margin: 1rem 0 1.2rem; }
+  .box-pink   { background: #f472b610; border-left: 4px solid #f472b6; }
+  .box-green  { background: #34d39910; border-left: 4px solid #34d399; }
+  .box-blue   { background: #38bdf810; border-left: 4px solid #38bdf8; }
+  .box-purple { background: #a78bfa10; border-left: 4px solid #a78bfa; }
+  .box-amber  { background: #fbbf2410; border-left: 4px solid #fbbf24; }
+  pre { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 1.1rem 1.3rem; overflow-x: auto; margin: 0.8rem 0 1.2rem; }
+  pre code { font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 0.85rem; line-height: 1.6; color: #e2e8f0; }
+  p code, li code, td code { background: #1e293b; padding: 0.15rem 0.4rem; border-radius: 4px; font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 0.88em; color: #38bdf8; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.92rem; }
+  th, td { padding: 0.6rem 0.9rem; text-align: left; border-bottom: 1px solid #1e293b; }
+  th { background: #1e293b; color: #38bdf8; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  tr:hover { background: #1e293b40; }
+  .hero {
+    background: linear-gradient(135deg, #0f172a, #1e293b 60%, #0f172a);
+    padding: 3rem 2rem; border-radius: 16px; margin-bottom: 2rem;
+    border: 1px solid #334155; text-align: left;
+  }
+  .hero .meta { color: #94a3b8; font-size: 0.95rem; margin-top: 1rem; }
+  .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.8rem; margin-top: 1rem; }
+  .meta-grid .item { background: #1e293b; padding: 0.7rem 0.9rem; border-radius: 8px; border-left: 3px solid #38bdf8; }
+  .meta-grid .item .lbl { display: block; font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+  .meta-grid .item .val { font-weight: 700; color: #e2e8f0; font-size: 0.95rem; }
+  img { max-width: 100%; height: auto; border-radius: 10px; margin: 0.8rem 0; border: 1px solid #1e293b; }
+  footer { text-align: center; color: #64748b; font-size: 0.85rem; padding: 2rem 1rem; border-top: 1px solid #1e293b; margin-top: 3rem; }
+  .pipeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin: 1.4rem 0; }
+  .step { background: #1e293b; padding: 1.1rem 1.2rem; border-radius: 10px; border-top: 3px solid #38bdf8; }
+  .step .n { color: #38bdf8; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.1em; }
+  .step h4 { color: #f8fafc; font-size: 1.05rem; margin: 0.3rem 0 0.5rem; }
+  .step p { color: #cbd5e1; font-size: 0.9rem; margin: 0; }
+</style>
+</head>
+<body>
+<nav><div class="nav-inner">
+  <span class="nav-title">Project 21: Stock Portfolio Recommender</span>
+  <a href="#overview">Overview</a>
+  <a href="#motivation">Motivation</a>
+  <a href="#data">Data</a>
+  <a href="#methods">Methods</a>
+  <a href="#baseline">Baseline</a>
+  <a href="#advanced">Advanced</a>
+  <a href="#discussion">Discussion</a>
+  <a href="#conclusion">Conclusion</a>
+  <a href="#refs">References</a>
+</div></nav>
+<main>
+
+<section id="overview" class="hero">
+  <h1>Personalised Stock Portfolio Recommender</h1>
+  <div class="subtitle">A cluster-then-rank recommender that maps a five-question risk questionnaire to a 5 to 10 stock portfolio drawn from the S&amp;P 500 plus DAX 40 universe, with a hard 30% per-sector cap.</div>
+  <div class="meta-grid">
+    <div class="item"><span class="lbl">Track</span><span class="val">Data Scientist</span></div>
+    <div class="item"><span class="lbl">Difficulty</span><span class="val">8/10</span></div>
+    <div class="item"><span class="lbl">Universe</span><span class="val">~540 tickers (SP500 + DAX40)</span></div>
+    <div class="item"><span class="lbl">Pipeline</span><span class="val">Cluster -&gt; rank -&gt; cap</span></div>
+    <div class="item"><span class="lbl">Output</span><span class="val">5-10 stock portfolio</span></div>
+    <div class="item"><span class="lbl">Sector cap</span><span class="val">30%</span></div>
+  </div>
+</section>
+
+<section id="motivation">
+  <h2>Motivation</h2>
+  <p>A retail investor who wants to start picking individual stocks usually has two options: pay for a broker's recommendation, or open an online screener and stare at hundreds of tickers without knowing where to begin. Existing tools either force every user into a generic "aggressive / moderate / conservative" bucket or assume the user already knows the vocabulary of finance.</p>
+  <p>This project specifies a recommender that sits between those two extremes: it asks five questions (years of investing experience, time horizon, drawdown tolerance, monthly budget, sector preferences) and returns a small portfolio of 5 to 10 stocks with the risk metrics that justify each choice. The output is decision support for a beginner investor, not financial advice.</p>
+  <div class="box box-amber">
+    <strong>Disclaimer.</strong> The Streamlit demo (Phase 2) shows a prominent disclaimer: this tool produces information for education and decision support, it is not a registered investment advisor and the user is responsible for any trades made on its output.
+  </div>
+</section>
+
+<section id="data">
+  <h2>Data sources</h2>
+  <ul>
+    <li><strong>Universe:</strong> S&amp;P 500 constituents + DAX 40 constituents from Wikipedia (~540 tickers after deduplication).</li>
+    <li><strong>Daily OHLCV:</strong> 5 years of history via <code>yfinance</code> with <code>auto_adjust=True</code> so closes already absorb splits and dividends.</li>
+    <li><strong>Risk-free rate:</strong> FRED <code>DGS10</code> (10-year US Treasury), averaged over the window.</li>
+    <li><strong>Fundamentals (advanced model):</strong> <code>yf.Ticker.info</code> for trailing P/E and dividend yield, with Alpha Vantage free tier as backup.</li>
+    <li><strong>Offline fallback:</strong> Kaggle "Huge Stock Market Dataset" only if Yahoo rate-limits the entire run.</li>
+  </ul>
+  <p>No bulk pre-download is shipped: <code>yfinance</code> fetches the full universe in roughly 90 seconds and caches it as parquet under <code>data/cache/</code>. See <code>data/README.md</code> for exact fetch commands.</p>
+</section>
+
+<section id="methods">
+  <h2>Methods - cluster, rank, cap</h2>
+  <div class="pipeline">
+    <div class="step">
+      <span class="n">STEP 1</span>
+      <h4>Cluster</h4>
+      <p>K-Means on five features (annualised return, vol, Sharpe, beta, max drawdown). k chosen by silhouette over k in {3..10}. Advanced variant uses 16-dim autoencoder embeddings of the weekly-return surface.</p>
+    </div>
+    <div class="step">
+      <span class="n">STEP 2</span>
+      <h4>Rank</h4>
+      <p>Within each cluster: trailing Sharpe (baseline) or LightGBM lambdarank conditioned on the user's risk score (advanced). Target = quintile rank of forward 12-month return inside the cluster.</p>
+    </div>
+    <div class="step">
+      <span class="n">STEP 3</span>
+      <h4>Cap and pick</h4>
+      <p>Map the user's questionnaire to a 0..1 risk score. Pick clusters by risk. Take the top-N reranked stocks subject to the 30% per-sector hard cap. Sector preferences act as a soft tiebreaker.</p>
+    </div>
+  </div>
+
+  <h3>User questionnaire to risk score</h3>
+  <pre><code>risk_score = 0.25 * min(years_experience, 20) / 20
+           + 0.25 * min(horizon_years, 20) / 20
+           + 0.40 * min(drawdown_tolerance, 0.50) / 0.50
+           + 0.10 * (1 if monthly_budget &gt;= 500 else 0.5)
+# clipped to [0, 1]; &lt;0.33 -&gt; calmest cluster, 0.33-0.66 -&gt; calmer half, &gt;0.66 -&gt; volatile half</code></pre>
+</section>
+
+<section id="baseline">
+  <h2>Baseline pipeline</h2>
+  <ul>
+    <li>K-Means on standardised (ann_return, ann_vol, sharpe, beta, max_drawdown).</li>
+    <li>Cluster centroids labelled with a heuristic rule set (defensive-low-beta, quality-compounders, growth-cyclical, high-risk-tail).</li>
+    <li>Within-cluster ranking by trailing Sharpe.</li>
+    <li>30% per-sector cap; sector preferences soft-bumped to top of within-cluster ordering.</li>
+  </ul>
+  <p><strong>Saved artefacts.</strong> <code>deliverables/baseline_kmeans.joblib</code>, <code>baseline_metrics.json</code>, <code>baseline_demo_portfolio.csv</code>.</p>
+
+  <table>
+    <tr><th>Metric</th><th>Value</th></tr>
+    <tr><td>Best k (silhouette)</td><td>&lt;TBD after model run&gt;</td></tr>
+    <tr><td>Silhouette score</td><td>&lt;TBD after model run&gt;</td></tr>
+    <tr><td>n tickers in universe</td><td>&lt;TBD after model run&gt;</td></tr>
+    <tr><td>Demo portfolio Sharpe</td><td>&lt;TBD after model run&gt;</td></tr>
+  </table>
+</section>
+
+<section id="advanced">
+  <h2>Advanced pipeline</h2>
+  <ul>
+    <li><strong>Embedding.</strong> 4-layer fully-connected autoencoder, bottleneck 16, trained on the most recent 208 weekly returns per ticker.</li>
+    <li><strong>Cluster.</strong> K-Means on (16-dim embedding + Sharpe + beta + max_drawdown).</li>
+    <li><strong>Cluster-level mean-variance.</strong> PyPortfolioOpt's <code>EfficientFrontier.max_sharpe</code> with weight bounds (0, 0.30) per cluster.</li>
+    <li><strong>Within-cluster ranker.</strong> LightGBM lambdarank with the user's risk score broadcast as a context feature; relevance label = quintile rank of forward 12-month return inside the cluster.</li>
+    <li><strong>Inference.</strong> Same risk-driven cluster pick as the baseline; ranker score replaces trailing-Sharpe ordering; same 30% per-sector cap.</li>
+  </ul>
+
+  <p><strong>Saved artefacts.</strong> <code>deliverables/advanced_autoencoder.pt</code>, <code>advanced_cluster.joblib</code>, <code>advanced_ranker.txt</code>, <code>advanced_metrics.json</code>, <code>advanced_demo_portfolio.csv</code>.</p>
+
+  <table>
+    <tr><th>Metric</th><th>Baseline</th><th>Advanced</th></tr>
+    <tr><td>Best k</td><td>&lt;TBD&gt;</td><td>&lt;TBD&gt;</td></tr>
+    <tr><td>Silhouette</td><td>&lt;TBD&gt;</td><td>&lt;TBD&gt;</td></tr>
+    <tr><td>NDCG@5 (within cluster)</td><td>n/a</td><td>&lt;TBD&gt;</td></tr>
+    <tr><td>Demo portfolio Sharpe</td><td>&lt;TBD&gt;</td><td>&lt;TBD&gt;</td></tr>
+    <tr><td>1/N benchmark Sharpe (same picks)</td><td>&lt;TBD&gt;</td><td>&lt;TBD&gt;</td></tr>
+  </table>
+</section>
+
+<section id="discussion">
+  <h2>Discussion</h2>
+  <h3>What the cluster step buys</h3>
+  <p>An end-to-end ranker on the full universe would assemble the eight highest-Sharpe stocks across 540 tickers, which would tend to concentrate in whichever sector ran hottest. The cluster-first decomposition forces the recommender to draw from multiple regions of the risk-return space, which is the operational form of diversification that Markowitz's covariance matrix originally encoded.</p>
+  <h3>What the ranker buys</h3>
+  <p>Trailing Sharpe is a reasonable scalar but ignores cross-sectional information that is well-documented to predict forward returns: short-term momentum, realised-volatility clustering, and the user-conditional context that the questionnaire provides. LightGBM lambdarank uses all three jointly and is trained against a ranking objective directly rather than a regression on forward return.</p>
+  <h3>Limitations</h3>
+  <ul>
+    <li><strong>Universe.</strong> ~540 tickers, US-large-cap-skewed; results do not generalise to small-caps, EM, or alt-assets.</li>
+    <li><strong>Survivorship.</strong> Tickers that delisted between training window and now are absent, biasing the empirical forward-return distribution upward.</li>
+    <li><strong>Deflated Sharpe.</strong> With multiple-testing correction (Harvey, Liu, Zhu 2015), small lifts of the advanced model over the baseline should not be over-interpreted.</li>
+  </ul>
+  <h3>Why no end-to-end model</h3>
+  <p>End-to-end DRL or transformer rankers (AlphaStock, STHAN-SR) deliver higher NDCG on academic benchmarks but compromise on interpretability, sample efficiency on a 540-ticker universe, and the survivorship-corrected lift collapses to single digits. The cluster-then-rank decomposition is the right tradeoff for a beginner-investor recommender that has to surface a cluster label and per-stock risk metrics.</p>
+</section>
+
+<section id="conclusion">
+  <h2>Conclusion</h2>
+  <p>The Stock Portfolio Recommender decomposes into three interpretable steps - cluster the universe by risk-return profile, rank within cluster, map a questionnaire to a target risk that selects clusters - with a hard 30% per-sector cap. The baseline is K-Means on five hand-engineered features plus trailing Sharpe; the advanced pipeline replaces each step with a stronger learned component (autoencoder embeddings, mean-variance optimisation, LightGBM lambdarank). Phase 1 ships code, scaffold, references, manuscript, and presentation. Phase 2 fills in the numerical results, runs the backtest, and ships the Streamlit demo described in the brief.</p>
+</section>
+
+<section id="refs">
+  <h2>References (top 5)</h2>
+  <ol>
+    <li><strong>Markowitz, H.</strong> (1952). Portfolio Selection. <em>The Journal of Finance</em>. DOI: <a href="https://doi.org/10.2307/2975974">10.2307/2975974</a>.</li>
+    <li><strong>Lopez de Prado, M.</strong> (2016). Building Diversified Portfolios that Outperform Out of Sample. <em>The Journal of Portfolio Management</em>. DOI: <a href="https://doi.org/10.3905/jpm.2016.42.4.059">10.3905/jpm.2016.42.4.059</a>.</li>
+    <li><strong>Gu, S., Kelly, B., &amp; Xiu, D.</strong> (2020). Empirical Asset Pricing via Machine Learning. <em>The Review of Financial Studies</em>. DOI: <a href="https://doi.org/10.1093/rfs/hhaa009">10.1093/rfs/hhaa009</a>.</li>
+    <li><strong>Sawhney, R. et al.</strong> (2021). Stock Selection via Spatiotemporal Hypergraph Attention Network: A Learning to Rank Approach. <em>AAAI 2021</em>. DOI: <a href="https://doi.org/10.1609/aaai.v35i1.16127">10.1609/aaai.v35i1.16127</a>.</li>
+    <li><strong>Martin, R. A.</strong> (2021). PyPortfolioOpt: portfolio optimization in Python. <em>Journal of Open Source Software</em>. DOI: <a href="https://doi.org/10.21105/joss.03066">10.21105/joss.03066</a>.</li>
+  </ol>
+  <p>Full list (37 verified references) at <code>reports/references.md</code>.</p>
+</section>
+
+<footer>
+  Liora MLE Programme - Cohort 6973 - Project 21 Phase 1 scaffold (May 2026)
+</footer>
+</main>
+</body>
+</html>

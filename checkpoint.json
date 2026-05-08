@@ -1,0 +1,23 @@
+{
+  "project_number": 21,
+  "title": "Stock Portfolio Recommender",
+  "methodology": "Cluster-then-rank recommender on equities. Baseline = K-Means on five risk-return features + intra-cluster Sharpe ranking. Advanced = autoencoder return-surface embeddings + cluster-level PyPortfolioOpt max-Sharpe + LightGBM lambdarank with user-risk context.",
+  "phase": "Phase 1 - scaffolded code-only",
+  "status": {
+    "folder_structure": true,
+    "brief_written": true,
+    "dataset_downloaded": false,
+    "eda_notebook_built": true,
+    "refs_verified_count": 37,
+    "baseline_script_built": true,
+    "advanced_script_built": true,
+    "manuscript_word_count": 4398,
+    "presentation_built": true
+  },
+  "needs_main_session_execution": [
+    "notebooks/01_EDA.ipynb",
+    "src/model_baseline.py",
+    "src/model_advanced.py"
+  ],
+  "blockers": []
+}
