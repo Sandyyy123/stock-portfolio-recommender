@@ -1,3 +1,17 @@
+# =============================================================================
+# WARNING: Universe is constructed from current Wikipedia constituents.
+# Backtests are subject to survivorship bias. Phase 2 to-do: replace with
+# point-in-time historical constituents.
+#
+# Every ticker in the universe survived to the run date; stocks that delisted
+# or fell out of the S&P 500 / DAX 40 over the lookback window are absent.
+# This inflates realised returns by roughly 1 to 2 percent per year on US
+# equities (Brown, Goetzmann, Ross 1995) and the bias is asymmetric: winners
+# stay, losers vanish. No Sharpe number produced by this script should be
+# presented as evidence of real-world out-of-sample edge until the universe
+# is rebuilt from point-in-time index-membership records and a walk-forward
+# backtest with explicit transaction costs is run on it.
+# =============================================================================
 """Advanced recommender for Project 21: Stock Portfolio Recommender.
 
 Pipeline:
