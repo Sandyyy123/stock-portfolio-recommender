@@ -1,6 +1,6 @@
 # =============================================================================
 # WARNING: Universe is constructed from current Wikipedia constituents.
-# Backtests are subject to survivorship bias. Phase 2 to-do: replace with
+# Backtests are subject to survivorship bias. v1.0 to-do: replace with
 # point-in-time historical constituents.
 #
 # Every ticker in the universe survived to the run date; stocks that delisted
@@ -25,7 +25,7 @@ Pipeline:
   5. At inference, pick clusters by user risk profile, take the top-N reranked tickers, apply the 30%
      per-sector cap, return the recommended portfolio.
 
-This script is code-only for Phase 1; runs after notebooks/01_EDA.ipynb has produced features.parquet
+This script is code-only for v1.0; runs after notebooks/01_EDA.ipynb has produced features.parquet
 and a weekly-returns matrix at data/cache/returns_weekly.parquet (the EDA notebook's pivot of `ret_d`
 resampled to weekly is sufficient).
 

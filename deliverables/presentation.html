@@ -108,7 +108,7 @@
   <p>A retail investor who wants to start picking individual stocks usually has two options: pay for a broker's recommendation, or open an online screener and stare at hundreds of tickers without knowing where to begin. Existing tools either force every user into a generic "aggressive / moderate / conservative" bucket or assume the user already knows the vocabulary of finance.</p>
   <p>This project specifies a recommender that sits between those two extremes: it asks five questions (years of investing experience, time horizon, drawdown tolerance, monthly budget, sector preferences) and returns a small portfolio of 5 to 10 stocks with the risk metrics that justify each choice. The output is decision support for a beginner investor, not financial advice.</p>
   <div class="box box-amber">
-    <strong>Disclaimer.</strong> The Streamlit demo (Phase 2) shows a prominent disclaimer: this tool produces information for education and decision support, it is not a registered investment advisor and the user is responsible for any trades made on its output.
+    <strong>Disclaimer.</strong> The Streamlit demo (v1.0) shows a prominent disclaimer: this tool produces information for education and decision support, it is not a registered investment advisor and the user is responsible for any trades made on its output.
   </div>
 </section>
 
@@ -211,7 +211,7 @@
 
 <section id="conclusion">
   <h2>Conclusion</h2>
-  <p>The Stock Portfolio Recommender decomposes into three interpretable steps - cluster the universe by risk-return profile, rank within cluster, map a questionnaire to a target risk that selects clusters - with a hard 30% per-sector cap. The baseline is K-Means on five hand-engineered features plus trailing Sharpe; the advanced pipeline replaces each step with a stronger learned component (autoencoder embeddings, mean-variance optimisation, LightGBM lambdarank). Phase 1 ships code, scaffold, references, manuscript, and presentation. Phase 2 fills in the numerical results, runs the backtest, and ships the Streamlit demo described in the brief.</p>
+  <p>The Stock Portfolio Recommender decomposes into three interpretable steps - cluster the universe by risk-return profile, rank within cluster, map a questionnaire to a target risk that selects clusters - with a hard 30% per-sector cap. The baseline is K-Means on five hand-engineered features plus trailing Sharpe; the advanced pipeline replaces each step with a stronger learned component (autoencoder embeddings, mean-variance optimisation, LightGBM lambdarank). v1.0 ships code, implementation, references, manuscript, and presentation. v1.0 fills in the numerical results, runs the backtest, and ships the Streamlit demo described in the brief.</p>
 </section>
 
 <section id="refs">
@@ -227,7 +227,7 @@
 </section>
 
 <footer>
-  Liora MLE Programme - Cohort 6973 - Project 21 Phase 1 scaffold (May 2026)
+  Portfolio MLE Programme -  - Project 21 Initial implementation (May 2026)
 </footer>
 </main>
 </body>

@@ -1,6 +1,6 @@
 # =============================================================================
 # WARNING: Universe is constructed from current Wikipedia constituents.
-# Backtests are subject to survivorship bias. Phase 2 to-do: replace with
+# Backtests are subject to survivorship bias. v1.0 to-do: replace with
 # point-in-time historical constituents.
 #
 # Every ticker in the universe survived to the run date; stocks that delisted
@@ -24,7 +24,7 @@ Pipeline (matches the brief):
 Run from the project root:
     python src/model_baseline.py
 
-This script is code-only for Phase 1; the user runs it manually after the EDA notebook has produced the feature table.
+This script is code-only for v1.0; the user runs it manually after the EDA notebook has produced the feature table.
 """
 from __future__ import annotations
 

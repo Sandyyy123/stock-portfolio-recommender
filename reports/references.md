@@ -105,13 +105,13 @@ The set is complementary to `reports/references.md` (37 entries, mostly seminal 
 
 ## State-of-the-art gaps in current `references.md`
 
-After scanning the existing 37-entry reference list, five concrete SOTA gaps stand out that the current Phase 1 manuscript would benefit from citing:
+After scanning the existing 37-entry reference list, five concrete SOTA gaps stand out that the current v1.0 manuscript would benefit from citing:
 
 1. **Conditional autoencoder asset-pricing models.** The current advanced model uses a vanilla return-surface autoencoder followed by K-Means; the conditional autoencoder (CAE) line of work (originally Gu, Kelly, Xiu 2021 in JFE; replicated for the Korean market by Kim et al. 2023, see entry 1 below) ties the embedding directly to forward returns through a beta-times-factor decoder. This is a strictly stronger embedding-for-pricing argument than reconstruction-only autoencoders and is the natural bridge between the embedding step and the LightGBM ranker.
 2. **Backtest-overfitting diagnostics in the ML era.** The manuscript invokes Harvey, Liu, Zhu 2015 once. Arian, Norouzi Mobarekeh, Seco 2024 (entry 16 below, *Knowledge-Based Systems*) operationalise probabilistic backtest-overfitting diagnostics for ML pipelines specifically; this is the right modern citation for the limitations section, not just the 2015 multiple-testing paper.
 3. **Deep-learning Black-Litterman views.** The manuscript mentions Black-Litterman as future work but does not cite any modern operationalisation. Ko and Lee 2025 (entry 9) and Su, Lu, Yen 2026 in *Expert Systems with Applications* (entry 10) both publish deep-learning-derived view vectors for Black-Litterman, exactly the upgrade path described in section 5.5.
-4. **Multi-objective ESG-aware portfolio optimisation.** The brief excludes crypto and fixed income but does not address ESG. Feng et al. 2024 in *European Financial Management* (entry 12) and Müller, Joubrel 2025 in *Finance Research Letters* (entry 13) are the current references for sustainable mean-variance with ML-derived views, and the Streamlit demo in Phase 2 should at minimum acknowledge them.
-5. **Risk-tolerance profiling from text.** The questionnaire-to-risk-score mapping in section 3.1 is a hand-crafted weighted sum. Xing 2024 in *Information Processing and Management* (entry 22) shows how to derive a continuous risk-tolerance score from free-text user responses, which is a credible Phase 2 extension that the current manuscript does not cite.
+4. **Multi-objective ESG-aware portfolio optimisation.** The brief excludes crypto and fixed income but does not address ESG. Feng et al. 2024 in *European Financial Management* (entry 12) and Müller, Joubrel 2025 in *Finance Research Letters* (entry 13) are the current references for sustainable mean-variance with ML-derived views, and the Streamlit demo in v1.0 should at minimum acknowledge them.
+5. **Risk-tolerance profiling from text.** The questionnaire-to-risk-score mapping in section 3.1 is a hand-crafted weighted sum. Xing 2024 in *Information Processing and Management* (entry 22) shows how to derive a continuous risk-tolerance score from free-text user responses, which is a credible v1.0 extension that the current manuscript does not cite.
 
 ---
 
