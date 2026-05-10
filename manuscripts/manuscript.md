@@ -1,7 +1,7 @@
 # A Cluster-then-Rank Stock Portfolio Recommender for Beginner Investors: Methodology and Code-Only v1.0 Specification
 
 **Author:** Sandeep Grover, Independent Research
-**Affiliation:** Independent researcher, Mossingen, Germany
+**Affiliation:** Independent researcher, Germany
 
 **Date:** May 2026
 
