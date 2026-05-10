@@ -226,4 +226,4 @@ We specified a personalised stock-portfolio recommender that decomposes the desi
 
 ## References
 
-See `/root/AI/project_root/reports/references.md` for the full list of 37 verified references with DOIs. Inline citations in this manuscript follow the [Author Year] convention and resolve against that file.
+See `./reports/references.md` for the full list of 37 verified references with DOIs. Inline citations in this manuscript follow the [Author Year] convention and resolve against that file.
